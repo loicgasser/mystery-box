@@ -113,7 +113,7 @@ print(num_t(4))
 ```python
 f = None
 
-for i in range (5):
+for i in range(5):
     with open("data.txt", "r") as f:
         if i > 2:
             break
