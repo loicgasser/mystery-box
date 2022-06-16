@@ -114,7 +114,7 @@ print(num_t(4))
 f = None
 
 for i in range(5):
-    with open("data.txt", "r") as f:
+    with open("data.txt", "w") as f:
         if i > 2:
             break
  
