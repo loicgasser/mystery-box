@@ -85,6 +85,7 @@ print({fruit: price for fruit, price in zip(fruits, prices)})
 8.
 
 ```python
+import time
 import asyncio
 
 async def greet(name):
@@ -95,5 +96,7 @@ async def main():
     results = await asyncio.gather(greet("Alice"), greet("Bob"))
     print(results)
 
+start = time.time()
 asyncio.run(main())
+print(round(time.time() - start))
 ```
