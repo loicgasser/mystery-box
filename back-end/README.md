@@ -1,55 +1,14 @@
-# mystery-box
+# Back-end — Numerical code reading and debugging
 
-## Python
+This assessment takes approximately 30 minutes. Work through the five exercises with your interviewer and explain your reasoning aloud.
 
-A 1.
+Give an initial explanation in your own words. You may then run the snippets and consult documentation. AI assistance is not permitted in this block; the separate live exercise allows AI tools.
 
-```python
-def somefunction(*args, **kwargs):
-    print(args)
-    print(kwargs)
+The snippets use Python, NumPy, and pandas.
 
+## A1 — Python iteration
 
-somefunction('A', 2, name='Harry')
-```
-
-A 2.
-
-```python
-def multiply_number(num):
-    def product(number):
-        return num * number
-    return product
-
-num_t = multiply_number(2)
-
-print(num_t(11))
-print(num_t(4))
-```
-
-A 3.
-
-```python
-f = None
-
-for i in range(5):
-    with open("data.txt", "w") as f:
-        if i > 2:
-            break
-
-print(f.closed)
-```
-
-A 4.
-
-```python
-values = [2, 33, 43, 111, 225]
-
-print(values[-1])
-print(values[1:3])
-```
-
-A 5.
+What does this print, and why?
 
 ```python
 def somefunction():
@@ -61,77 +20,81 @@ print(next(f))
 print([i for i in f])
 ```
 
-A 6.
+## A2 — NumPy arrays
 
-```python
-def decorator(func):
-    return lambda: "World " + func()
-
-@decorator
-def greet():
-    return "Hello"
-
-print(greet())
-```
-
-A 7.
-
-```python
-fruits = ["apple", "banana", "cherry"]
-prices = [1.2, 0.5, 2.3]
-print({fruit: price for fruit, price in zip(fruits, prices)})
-```
-
-A 8.
-
-```python
-import time
-import asyncio
-
-async def greet(name):
-    await asyncio.sleep(1)
-    return f"Hello, {name}!"
-
-async def main():
-    results = await asyncio.gather(greet("Alice"), greet("Bob"))
-    print(results)
-
-start = time.time()
-asyncio.run(main())
-print(round(time.time() - start))
-```
-
-A 9.
+What does each line print? Explain what `axis=0` means here.
 
 ```python
 import numpy as np
+
 a = np.array([1, 2, 3, 4])
 print(a[a > 2])
 print(a.reshape(2, 2).sum(axis=0))
 ```
 
-B 1.
+## B1 — Channel contributions
+
+What does this code return? Is it correct? What would you change and test?
 
 ```python
-def aggregate_by_week(data):
-    week_number_to_value = {}
-    week_number = 0
-    for i, item in enumerate(data):
-        if i % 7 == 0:
-            week_number += 1
-        week_number_to_value[week_number] += item
-    print(week_number_to_value)
+import pandas as pd
 
-aggregate_by_week([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
+# Each channel's contribution is its spend times its coefficient.
+# Channel names identify which values belong together.
+spend = pd.Series(
+    [100.0, 200.0],
+    index=["search", "social"],
+)
+coefficients = pd.Series(
+    [0.2, 0.5],
+    index=["social", "search"],
+)
+
+contribution = spend.to_numpy() * coefficients.to_numpy()
+print(contribution.sum())
 ```
 
-B 2.
+## B2 — Probability helper
+
+A teammate proposes this helper. Would you approve it? What inputs would you test?
 
 ```python
 import numpy as np
 
+
 def softmax(x: np.ndarray) -> np.ndarray:
+    """Return probabilities for a nonempty vector of finite float logits."""
     e = np.exp(x)
     return e / e.sum()
 ```
 
+## B3 — Optimization result
+
+This code prints “Validated”. Is the recommendation valid? Walk me through what these checks establish and what you would add.
+
+```python
+import numpy as np
+
+# Allocate exactly this budget across two advertising channels.
+# Each allocation must be nonnegative.
+budget = 100.0
+
+# Outputs returned by an optimization solver:
+# channel order is [search, social].
+allocation = np.array([60.0, 50.0])
+solver_success = True
+reported_value = 120.0  # Objective value reported by the solver.
+
+
+def calculate_value(allocation):
+    """Independently calculate the objective for a given allocation."""
+    search_spend, social_spend = allocation
+    return 2.0 * search_spend + social_spend
+
+
+# Validate the result before publishing the recommendation.
+assert solver_success
+assert np.isclose(reported_value, reported_value)
+
+print("Validated")
+```
