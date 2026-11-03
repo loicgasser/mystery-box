@@ -1,26 +1,12 @@
 # Back-end — Numerical code reading and debugging
 
-This assessment takes approximately 30 minutes. Work through the five exercises with your interviewer and explain your reasoning aloud.
+This assessment takes approximately 15 minutes. Work through the three exercises with your interviewer and explain your reasoning aloud.
 
 Give an initial explanation in your own words. You may then run the snippets and consult documentation. AI assistance is not permitted in this block; the separate live exercise allows AI tools.
 
 The snippets use Python, NumPy, and pandas.
 
-## A1 — Python iteration
-
-What does this print, and why?
-
-```python
-def somefunction():
-    for val in [1, 33, 44]:
-        yield val
-
-f = somefunction()
-print(next(f))
-print([i for i in f])
-```
-
-## A2 — NumPy arrays
+## A1 — NumPy arrays
 
 What does each line print? Explain what `axis=0` means here.
 
@@ -54,21 +40,7 @@ contribution = spend.to_numpy() * coefficients.to_numpy()
 print(contribution.sum())
 ```
 
-## B2 — Probability helper
-
-A teammate proposes this helper. Would you approve it? What inputs would you test?
-
-```python
-import numpy as np
-
-
-def softmax(x: np.ndarray) -> np.ndarray:
-    """Return probabilities for a nonempty vector of finite float logits."""
-    e = np.exp(x)
-    return e / e.sum()
-```
-
-## B3 — Optimization result
+## B2 — Optimization result
 
 This code prints “Validated”. Is the recommendation valid? Walk me through what these checks establish and what you would add.
 
