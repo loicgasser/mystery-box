@@ -57,14 +57,14 @@ budget = 100.0
 
 # Results returned by the numerical solver.
 # Allocation order: [search, social], in dollars.
-allocation = np.array([60.0, 50.0])
+budget_allocation = np.array([60.0, 50.0])
 solver_success = True
 solve_objective_value = 120.0
 
 
-def calculate_objective_value(allocation):
-    """Evaluate the modeled return for a given allocation."""
-    search_spend, social_spend = allocation
+def calculate_objective_value(budget_allocation):
+    """Evaluate the modeled return for a given budget allocation."""
+    search_spend, social_spend = budget_allocation
     return 2.0 * search_spend + social_spend
 
 
