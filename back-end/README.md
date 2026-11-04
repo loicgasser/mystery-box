@@ -42,31 +42,37 @@ print(contribution.sum())
 
 ## B2 — Optimization result
 
-This code prints “Validated”. Is the recommendation valid? Walk me through what these checks establish and what you would add.
+You have just run a numerical optimization to allocate a fixed marketing budget across two channels: search and social.
+
+The objective is to maximize the modeled return: each dollar allocated to search produces two units of return, and each dollar allocated to social produces one. Allocations must be nonnegative and sum to the fixed budget.
+
+The solver returned the values below. Review the validation code before these results are published.
 
 ```python
 import numpy as np
 
-# Allocate exactly this budget across two advertising channels.
+# Constraint: allocate exactly $100 across search and social.
 # Each allocation must be nonnegative.
 budget = 100.0
 
-# Outputs returned by an optimization solver:
-# channel order is [search, social].
+# Results returned by the numerical solver.
+# Allocation order: [search, social], in dollars.
 allocation = np.array([60.0, 50.0])
 solver_success = True
-reported_value = 120.0  # Objective value reported by the solver.
+solve_objective_value = 120.0
 
 
-def calculate_value(allocation):
-    """Independently calculate the objective for a given allocation."""
+def calculate_objective_value(allocation):
+    """Evaluate the modeled return for a given allocation."""
     search_spend, social_spend = allocation
     return 2.0 * search_spend + social_spend
 
 
-# Validate the result before publishing the recommendation.
+# Validate the solver results before publishing them.
 assert solver_success
-assert np.isclose(reported_value, reported_value)
+assert np.isclose(solve_objective_value, solve_objective_value)
 
 print("Validated")
 ```
+
+The code prints “Validated”. What does it actually establish? Are these solver results valid, and what checks would you add?
